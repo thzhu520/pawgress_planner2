@@ -1,17 +1,19 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { useState } from "react";
+// import { Link } from "react-router-dom";
 import "./style.css";
+// import menuIcon from '../imgs/menu.png';
+
 
 export default function Dashboard() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  // const toggleMenu = () => {
+  //   setMenuOpen(!menuOpen);
+  // };
 
   return (
     <>
-      <header>
+      {/* <header>
         <div><strong>Pawgress Planner</strong></div>
         <nav className={menuOpen ? "active" : ""}>
           <Link to="/">Home</Link>
@@ -23,9 +25,9 @@ export default function Dashboard() {
           <Link to="/faq">FAQ</Link>
         </nav>
         <div className="hamburger" onClick={toggleMenu}>
-          <img src="/imgs/menu.png" alt="Menu icon" />
+        <img src={menuIcon} alt="Menu icon" />
         </div>
-      </header>
+      </header> */}
 
       <div className="container dashboard-grid">
         <div className="pet-list">
@@ -42,11 +44,27 @@ export default function Dashboard() {
         <div className="checklist">
           <div className="card">
             <h3>Today's Tasks</h3>
-            <ul>
-              <li><input type="checkbox" /> Feed Fluffy</li>
-              <li><input type="checkbox" /> Walk Rex</li>
-              <li><input type="checkbox" /> Clean litter box</li>
-            </ul>
+            <ul className="task-list">
+                <li>
+                  <label>
+                    <input type="checkbox" />
+                    <span>Feed Fluffy</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" />
+                    <span>Walk Rex</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="checkbox" />
+                    <span>Clean litter box</span>
+                  </label>
+                </li>
+              </ul>
+
           </div>
         </div>
       </div>

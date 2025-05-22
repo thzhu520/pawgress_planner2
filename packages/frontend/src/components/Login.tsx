@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./loginsignup.css";
+import homeIcon from '../imgs/home.png';
+
 
 export default function Login() {
   const navigate = useNavigate();
@@ -14,7 +16,7 @@ export default function Login() {
   return (
     <>
       <Link to="/" className="top-button">
-        <img src="/imgs/home.png" alt="Go to home" />
+      <img src={homeIcon} alt="Go to Home" />
       </Link>
 
       <div className="container">

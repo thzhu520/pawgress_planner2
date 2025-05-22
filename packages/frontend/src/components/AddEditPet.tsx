@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { useState } from "react";
+// import { Link } from "react-router-dom";
 import "./style.css";
+// import menuIcon from '../imgs/menu.png';
 
 export default function AddEditPet() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  // const [menuOpen, setMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  // const toggleMenu = () => {
+  //   setMenuOpen(!menuOpen);
+  // };
 
   return (
     <>
-      <header>
+      {/* <header>
         <div><strong>Pawgress Planner</strong></div>
         <nav className={menuOpen ? "active" : ""}>
           <Link to="/">Home</Link>
@@ -23,9 +24,9 @@ export default function AddEditPet() {
           <Link to="/faq">FAQ</Link>
         </nav>
         <div className="hamburger" onClick={toggleMenu}>
-          <img src="/imgs/menu.png" alt="Menu icon" />
+        <img src={menuIcon} alt="Menu icon" />
         </div>
-      </header>
+      </header> */}
 
       <div className="container">
         <div className="card">

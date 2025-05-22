@@ -13,6 +13,7 @@
     font-family: var(--primary-font);
     background-color: var(--light-blue);
     color: #333;
+    overflow-x: hidden;
   }
   
   header, nav {
@@ -70,6 +71,7 @@ body {
     min-height: 100vh;
     padding: 2rem;
     position: relative;
+    overflow: hidden;
   }
 
   .dot-icon {
@@ -286,6 +288,7 @@ body {
 
   .hamburger img {
     height: 30px;
+    margin-top: 1.5ch;
   }
 
   /* show hamburger and hide links on mobile */
@@ -309,7 +312,117 @@ body {
     }
 
     .nav-home-icon {
-      display: none; /* hide home icon on small screens, optional */
+      display: none; 
     }
   }
 /* end of hamburger menu */
+
+/* dashboard */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-list li {
+  margin: 0.75rem 0;
+  font-size: 1.1rem;
+}
+
+.task-list label {
+  display: inline-flex;
+  align-items: top;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+
+.task-list input[type="checkbox"]:checked + span {
+  text-decoration: line-through;
+  color: #888;
+}
+
+
+@media (max-width: 600px) {
+  .task-list label {
+    flex-direction: row; 
+    flex-wrap: nowrap;
+  }
+}
+
+.dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .dashboard-grid {
+    flex-direction: row;
+  }
+
+  .pet-list,
+  .checklist {
+    flex: 1;
+  }
+}
+/* end of dashboard */
+
+
+/* dark mode */
+.dark {
+  background-color: #a3b0cd;
+  color: rgb(98, 103, 196);
+}
+
+.dark a {
+  color: #a16ad2;
+}
+
+.dark .card {
+  background-color: #7373a8;
+  color: white;
+}
+
+.dark header,
+.dark nav {
+  background-color: #4f557d; 
+  color: white;
+}
+
+.dark nav a {
+  color: white;
+}
+
+.dark .dark-toggle {
+  background-color: #444;
+  color: white;
+}
+
+.dark .dark-toggle:hover {
+  background-color: #666;
+}
+
+
+.nav-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+}
+
+.dark-toggle {
+  background-color: var(--light-purple);
+  color: #222;
+  border: none;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--primary-font);
+  transition: background-color 0.2s ease;
+}
+
+.dark-toggle:hover {
+  background-color: #dcdcf4;
+}
+/* end of dark mode */
