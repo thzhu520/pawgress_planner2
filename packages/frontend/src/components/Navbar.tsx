@@ -24,6 +24,11 @@ export default function Navbar({ darkMode, setDarkMode }: NavbarProps) {
         </button>
       </div>
 
+      <div className="hamburger" onClick={toggleMenu}>
+  <img src={menuIcon} alt="Menu icon" />
+</div>
+
+
       <nav className={menuOpen ? "active" : ""}>
         <Link to="/">Home</Link>
         <Link to="/dashboard">Dashboard</Link>
