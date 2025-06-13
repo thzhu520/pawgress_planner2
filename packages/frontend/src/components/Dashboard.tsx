@@ -8,13 +8,13 @@ export default function Dashboard() {
   const [loadingTasks, setLoadingTasks] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/pets")
+    fetch("http://localhost:3000/api/pets")
       .then(res => res.json())
       .then(setPets)
       .catch(console.error)
       .finally(() => setLoadingPets(false));
 
-    fetch("http://localhost:3001/api/tasks")
+    fetch("http://localhost:3000/api/tasks")
       .then(res => res.json())
       .then(setTasks)
       .catch(console.error)

@@ -6,7 +6,7 @@ export default function TaskHistory() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/tasks")
+    fetch("http://localhost:3000/api/tasks")
       .then(res => res.json())
       .then(setTasks)
       .catch(console.error)

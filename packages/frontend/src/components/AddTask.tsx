@@ -9,7 +9,7 @@ export default function AddTask() {
   const [loadingPets, setLoadingPets] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/pets")
+    fetch("http://localhost:3000/api/pets")
       .then(res => res.json())
       .then(data => setPets(data))
       .catch(console.error)
@@ -18,7 +18,7 @@ export default function AddTask() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await fetch("http://localhost:3001/api/tasks", {
+    await fetch("http://localhost:3000/api/tasks", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: taskName, petName, repeat }),

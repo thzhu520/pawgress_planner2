@@ -8,8 +8,8 @@ export default function PetDetails() {
 
   useEffect(() => {
     Promise.all([
-      fetch("http://localhost:3001/api/pets").then(res => res.json()),
-      fetch("http://localhost:3001/api/tasks").then(res => res.json())
+      fetch("http://localhost:3000/api/pets").then(res => res.json()),
+      fetch("http://localhost:3000/api/tasks").then(res => res.json())
     ])
       .then(([petData, taskData]) => {
         setPets(petData);
