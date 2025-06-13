@@ -1,50 +1,45 @@
-// import { useState } from "react";
-// import { Link } from "react-router-dom";
+import { useState } from "react";
 import "./style.css";
-// import menuIcon from '../imgs/menu.png';
 
 export default function AddEditPet() {
-  // const [menuOpen, setMenuOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [type, setType] = useState("");
+  const [breed, setBreed] = useState("");
+  const [age, setAge] = useState("");
 
-  // const toggleMenu = () => {
-  //   setMenuOpen(!menuOpen);
-  // };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await fetch("http://localhost:3001/api/pets", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, type, breed, age: Number(age) }),
+    });
+    setName("");
+    setType("");
+    setBreed("");
+    setAge("");
+  };
 
   return (
-    <>
-      {/* <header>
-        <div><strong>Pawgress Planner</strong></div>
-        <nav className={menuOpen ? "active" : ""}>
-          <Link to="/">Home</Link>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/add-edit-pet">Add/Edit Pet</Link>
-          <Link to="/pet-details">Pet Details</Link>
-          <Link to="/task-history">Task History</Link>
-          <Link to="/add-task">Add Task</Link>
-          <Link to="/faq">FAQ</Link>
-        </nav>
-        <div className="hamburger" onClick={toggleMenu}>
-        <img src={menuIcon} alt="Menu icon" />
-        </div>
-      </header> */}
+    <div className="container">
+      <div className="card">
+        <h3>Add or Edit Pet</h3>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="name">Name:</label><br />
+          <input id="name" value={name} onChange={e => setName(e.target.value)} /><br /><br />
 
-      <div className="container">
-        <div className="card">
-          <h3>Add or Edit Pet</h3>
-          <form>
-            <label htmlFor="petname">Name:</label><br />
-            <input type="text" name="petname" id="petname" /><br /><br />
+          <label htmlFor="type">Type:</label><br />
+          <input id="type" value={type} onChange={e => setType(e.target.value)} /><br /><br />
 
-            <label htmlFor="type">Type:</label><br />
-            <input type="text" name="type" id="type" /><br /><br />
+          <label htmlFor="breed">Breed:</label><br />
+          <input id="breed" value={breed} onChange={e => setBreed(e.target.value)} /><br /><br />
 
-            <label htmlFor="photo">Photo:</label><br />
-            <input type="file" id="photo" /><br /><br />
+          <label htmlFor="age">Age:</label><br />
+          <input id="age" type="number" value={age} onChange={e => setAge(e.target.value)} /><br /><br />
 
-            <button type="submit">Save Pet</button>
-          </form>
-        </div>
+          <button type="submit">Save Pet</button>
+        </form>
       </div>
-    </>
+    </div>
   );
 }

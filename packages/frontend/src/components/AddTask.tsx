@@ -1,49 +1,62 @@
-// import { useState } from "react";
-// import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import "./style.css";
-// import menuIcon from '../imgs/menu.png';
-
 
 export default function AddTask() {
-  // const [menuOpen, setMenuOpen] = useState(false);
+  const [taskName, setTaskName] = useState("");
+  const [petName, setPetName] = useState("");
+  const [repeat, setRepeat] = useState("Once");
+  const [pets, setPets] = useState([]);
+  const [loadingPets, setLoadingPets] = useState(true);
 
-  // const toggleMenu = () => {
-  //   setMenuOpen(!menuOpen);
-  // };
+  useEffect(() => {
+    fetch("http://localhost:3001/api/pets")
+      .then(res => res.json())
+      .then(data => setPets(data))
+      .catch(console.error)
+      .finally(() => setLoadingPets(false));
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await fetch("http://localhost:3001/api/tasks", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: taskName, petName, repeat }),
+    });
+    setTaskName("");
+  };
 
   return (
-    <>
-      {/* <header>
-        <div><strong>Pawgress Planner</strong></div>
-        <nav className={menuOpen ? "active" : ""}>
-          <Link to="/">Home</Link>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/add-edit-pet">Add/Edit Pet</Link>
-          <Link to="/pet-details">Pet Details</Link>
-          <Link to="/task-history">Task History</Link>
-          <Link to="/add-task">Add Task</Link>
-          <Link to="/faq">FAQ</Link>
-        </nav>
-        <div className="hamburger" onClick={toggleMenu}>
-        <img src={menuIcon} alt="Menu icon" />
-        </div>
-      </header> */}
+    <div className="container">
+      <div className="card">
+        <h3>Create Task</h3>
 
-      <div className="container">
-        <div className="card">
-          <h3>Create Task</h3>
-          <form>
+        {loadingPets ? <p>Loading pets...</p> : (
+          <form onSubmit={handleSubmit}>
             <label htmlFor="taskname">Task Name:</label><br />
-            <input type="text" name="taskname" id="taskname" /><br /><br />
+            <input
+              id="taskname"
+              value={taskName}
+              onChange={e => setTaskName(e.target.value)}
+            /><br /><br />
 
             <label htmlFor="petSelect">Assign to Pet:</label><br />
-            <select id="petSelect">
-              <option>Fluffy</option>
-              <option>Rex</option>
+            <select
+              id="petSelect"
+              value={petName}
+              onChange={e => setPetName(e.target.value)}
+            >
+              {pets.map((p: any) => (
+                <option key={p._id}>{p.name}</option>
+              ))}
             </select><br /><br />
 
             <label htmlFor="repeatSelect">Repeat:</label><br />
-            <select id="repeatSelect">
+            <select
+              id="repeatSelect"
+              value={repeat}
+              onChange={e => setRepeat(e.target.value)}
+            >
               <option>Once</option>
               <option>Daily</option>
               <option>Weekly</option>
@@ -51,8 +64,8 @@ export default function AddTask() {
 
             <button type="submit">Create Task</button>
           </form>
-        </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }

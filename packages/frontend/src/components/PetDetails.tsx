@@ -1,46 +1,52 @@
-// import { useState } from "react";
-// import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./style.css";
-// import menuIcon from '../imgs/menu.png';
 
 export default function PetDetails() {
-  // const [menuOpen, setMenuOpen] = useState(false);
+  const [pets, setPets] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // const toggleMenu = () => {
-  //   setMenuOpen(!menuOpen);
-  // };
+  useEffect(() => {
+    Promise.all([
+      fetch("http://localhost:3001/api/pets").then(res => res.json()),
+      fetch("http://localhost:3001/api/tasks").then(res => res.json())
+    ])
+      .then(([petData, taskData]) => {
+        setPets(petData);
+        setTasks(taskData);
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
-    <>
-      {/* <header>
-        <div><strong>Pawgress Planner</strong></div>
-        <nav className={menuOpen ? "active" : ""}>
-          <Link to="/">Home</Link>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/add-edit-pet">Add/Edit Pet</Link>
-          <Link to="/pet-details">Pet Details</Link>
-          <Link to="/task-history">Task History</Link>
-          <Link to="/add-task">Add Task</Link>
-          <Link to="/faq">FAQ</Link>
-        </nav>
-        <div className="hamburger" onClick={toggleMenu}>
-          <img src={menuIcon} alt="Menu Icon" />
-
+    <div className="container">
+      {loading ? (
+        <p>Loading pet details...</p>
+      ) : (
+        <div className="dashboard-grid">
+          {pets.map((pet: any) => (
+            <div className="card" key={pet._id}>
+              <h3>{pet.name}</h3>
+              <p>Type: {pet.type}</p>
+              <p>Breed: {pet.breed || "N/A"}</p>
+              <p>Age: {pet.age || "N/A"}</p>
+              <h4>Tasks:</h4>
+              <ul>
+                {tasks.filter((task: any) => task.petName === pet.name).length > 0 ? (
+                  tasks
+                    .filter((task: any) => task.petName === pet.name)
+                    .map((task: any) => (
+                      <li key={task._id}>{task.name} ({task.repeat})</li>
+                    ))
+                ) : (
+                  <li>— No individual tasks linked yet</li>
+                )}
+              </ul>
+            </div>
+          ))}
         </div>
-      </header> */}
-
-      <div className="container">
-        <div className="card">
-          <h3>Fluffy 🐱</h3>
-          <p>Breed: Persian</p>
-          <p>Age: 2 years</p>
-          <h4>Tasks:</h4>
-          <ul>
-            <li>Feed - 8 AM</li>
-            <li>Groom - Sunday</li>
-          </ul>
-        </div>
-      </div>
-    </>
+      )}
+    </div>
   );
 }
